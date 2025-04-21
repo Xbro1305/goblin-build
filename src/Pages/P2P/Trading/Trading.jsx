@@ -113,7 +113,7 @@ export const Trading = () => {
                           styles.trading_content_main_body_item_top_left
                         }
                       >
-                        <FaUser /> {item.user.name}
+                        <FaUser /> {item?.user?.name}
                       </div>
                       <div
                         className={
