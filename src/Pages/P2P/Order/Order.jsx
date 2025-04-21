@@ -41,7 +41,7 @@ export const Order = () => {
               <span className="span">Order No.</span>
               <p className="p">
                 1909658797187162112
-                <p>
+                <span>
                   <TbCopy
                     style={{ color: "#2A2E2B71", cursor: "pointer" }}
                     onClick={() => {
@@ -52,7 +52,7 @@ export const Order = () => {
                       navigator.clipboard.writeText("1909658797187162112");
                     }}
                   />
-                </p>
+                </span>
               </p>
             </section>
             <section className={styles.order_content_item_section}>
@@ -60,7 +60,7 @@ export const Order = () => {
               <p className="p">2025-04-08 19:25:12</p>
             </section>
           </div>
-          <div className={styles.order_content_top}>
+          {/* <div className={styles.order_content_top}>
             <p className="p">Payment Method</p>
           </div>
           <div className={styles.order_content_item}>
@@ -68,7 +68,7 @@ export const Order = () => {
               <span className="span">Name</span>
               <p className="p">
                 ФИО пользователя
-                <p>
+                <span>
                   <TbCopy
                     style={{ color: "#2A2E2B71", cursor: "pointer" }}
                     onClick={() => {
@@ -79,14 +79,14 @@ export const Order = () => {
                       navigator.clipboard.writeText("ФИО пользователя");
                     }}
                   />
-                </p>
+                </span>
               </p>
             </section>
             <section className={styles.order_content_item_section}>
               <span className="span">Bank Account Number</span>
               <p className="p">
                 Номер телефона
-                <p>
+                <span>
                   <TbCopy
                     style={{ color: "#2A2E2B71", cursor: "pointer" }}
                     onClick={() => {
@@ -97,14 +97,14 @@ export const Order = () => {
                       navigator.clipboard.writeText("Номер телефона");
                     }}
                   />
-                </p>
+                </span>
               </p>
             </section>
             <section className={styles.order_content_item_section}>
               <span className="span">Bank Branch</span>
               <p className="p">
                 Bank Branch
-                <p>
+                <span>
                   <TbCopy
                     style={{ color: "#2A2E2B71", cursor: "pointer" }}
                     onClick={() => {
@@ -115,14 +115,14 @@ export const Order = () => {
                       navigator.clipboard.writeText("Bank Branch");
                     }}
                   />
-                </p>
+                </span>
               </p>
             </section>
             <section className={styles.order_content_item_section}>
               <span className="span">Bank Name</span>
               <p className="p">
                 Bank Name
-                <p>
+                <span>
                   <TbCopy
                     style={{ color: "#2A2E2B71", cursor: "pointer" }}
                     onClick={() => {
@@ -133,10 +133,10 @@ export const Order = () => {
                       navigator.clipboard.writeText("Название банка");
                     }}
                   />
-                </p>
+                </span>
               </p>
             </section>
-          </div>
+          </div> */}
         </div>
       </div>
       <p className="p" style={{ borderBottom: "1px solid #9D9D9D" }}>

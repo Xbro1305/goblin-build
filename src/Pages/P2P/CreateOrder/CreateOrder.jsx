@@ -2,11 +2,37 @@ import React, { useState } from "react";
 import styles from "./CreateOrder.module.scss";
 import bg from "../../../assets/images/Group 756.png";
 import { NumericFormat } from "react-number-format";
-import { BiCard } from "react-icons/bi";
 import { IoCard } from "react-icons/io5";
+import axios from "axios";
 
 export const CreateOrder = () => {
-  const [page, setPage] = useState("Buy");
+  const [page, setPage] = useState("BUY");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    axios(process.env.REACT_APP_BASE_URL + "/api/p2p/create", {
+      method: "POST",
+      data: {
+        type: page,
+        amount: e.target.amount.value,
+        currency: e.target.currency.value,
+        price: e.target.price.value,
+        paymentMethodIds: [],
+      },
+
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className={styles.createOrder}>
@@ -14,9 +40,9 @@ export const CreateOrder = () => {
       <div className={styles.createOrder_top}>
         <button
           className="p"
-          onClick={() => setPage("Buy")}
+          onClick={() => setPage("BUY")}
           style={
-            page === "Buy"
+            page === "BUY"
               ? { color: "#000", borderBottom: "2px solid #215E04" }
               : { color: "#2A2E2B70" }
           }
@@ -25,9 +51,9 @@ export const CreateOrder = () => {
         </button>
         <button
           className="p"
-          onClick={() => setPage("Sell")}
+          onClick={() => setPage("SELL")}
           style={
-            page === "Sell"
+            page === "SELL"
               ? { color: "#000", borderBottom: "2px solid #215E04" }
               : { color: "#2A2E2B70" }
           }
@@ -36,7 +62,7 @@ export const CreateOrder = () => {
         </button>
       </div>
 
-      <form className={styles.createOrder_body}>
+      <form className={styles.createOrder_body} onSubmit={handleSubmit}>
         <div className={styles.createOrder_left}>
           <label>
             <p className="p">Криптовалюта</p>
@@ -48,6 +74,7 @@ export const CreateOrder = () => {
             <p className="p">Сумма</p>
             <NumericFormat
               className="span"
+              name="amount"
               thousandSeparator={true}
               fixedDecimalScale={true}
               placeholder="5-10000"
@@ -87,6 +114,7 @@ export const CreateOrder = () => {
             <NumericFormat
               className="span"
               thousandSeparator={true}
+              name="price"
               fixedDecimalScale={true}
               placeholder="5-10000"
               min={5}
@@ -103,6 +131,7 @@ export const CreateOrder = () => {
               thousandSeparator={true}
               fixedDecimalScale={true}
               min={5}
+              name="limit"
               max={100}
               allowNegative={false}
               allowLeadingZeros={false}

@@ -13,6 +13,12 @@
     flex-direction: column;
     gap: 10px;
 
+    &_main {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
     &_top {
       display: flex;
       flex-direction: column;
@@ -90,15 +96,13 @@
         align-items: center;
         justify-content: space-between;
 
-        p{
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-weight: 500;
+        p {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          font-weight: 500;
         }
       }
-
-      
     }
   }
 }
