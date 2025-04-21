@@ -15,9 +15,9 @@ export const CreateOrder = () => {
       method: "POST",
       data: {
         type: page,
-        amount: e.target.amount.value,
-        currency: e.target.currency.value,
-        price: e.target.price.value,
+        amount: Number(e.target.amount.value),
+        currency: Number(e.target.currency.value),
+        price: Number(e.target.price.value),
         paymentMethodIds: [],
       },
 
