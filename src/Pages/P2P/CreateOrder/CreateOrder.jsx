@@ -12,7 +12,7 @@ export const CreateOrder = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios(process.env.REACT_APP_BASE_URL + "/api/p2p/create", {
+    axios(process.env.REACT_APP_BASE_URL + "/api/p2p/offers/create", {
       method: "POST",
       data: {
         type: page,
