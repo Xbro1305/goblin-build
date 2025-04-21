@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Trading.module.scss";
 import bg from "../../../assets/images/Group 756.png";
 import { TbExchange, TbFilter } from "react-icons/tb";
@@ -8,8 +8,9 @@ export const Trading = () => {
   const [page, setPage] = React.useState("Buy");
   const [data, setData] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
+  const [items, setItems] = React.useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch(process.env.REACT_APP_BASE_URL + "/api/p2p/offers/all", {
       method: "GET",
       headers: {
@@ -27,6 +28,18 @@ export const Trading = () => {
         setLoading(false);
       });
   }, []);
+
+  useEffect(() => {
+    setItems(
+      data.filter((item) => {
+        if (page === "Buy") {
+          return item.type === "BUY";
+        } else if (page === "Sell") {
+          return item.type === "SELL";
+        }
+      })
+    );
+  }, [page, data]);
 
   return (
     <div className={styles.trading}>
@@ -100,37 +113,55 @@ export const Trading = () => {
               <div className={styles.trading_content_main_body_loading}>
                 <p className="p">Loading...</p>
               </div>
-            ) : data.length > 0 ? (
-              data.map((item) => {
+            ) : items.length > 0 ? (
+              items.map((item) => {
                 return (
-                  <div
-                    className={styles.trading_content_main_body_item}
-                    key={item.id}
-                  >
-                    <div className={styles.trading_content_main_body_item_top}>
-                      <div
-                        className={
-                          styles.trading_content_main_body_item_top_left
-                        }
-                      >
-                        <FaUser /> {item?.user?.name}
+                  <div className={styles.trading_content_item}>
+                    <div className={styles.trading_content_item_top}>
+                      <div className={styles.trading_content_item_top_left}>
+                        <section>
+                          <FaUser />
+                        </section>
+                        <div
+                          className={styles.trading_content_item_top_left_user}
+                        >
+                          <p className="span">{item?.user?.name || "User"}</p>
+                          <span className="span2">когда-то</span>
+                        </div>
                       </div>
-                      <div
-                        className={
-                          styles.trading_content_main_body_item_top_right
-                        }
-                      >
-                        {item.price} {item.currency}
+                      <div className={styles.trading_content_item_top_right}>
+                        <p className="span">778 Orders</p>
+                        <span></span>
+                        <p className="span">98%</p>
                       </div>
                     </div>
-                    <div
-                      className={styles.trading_content_main_body_item_bottom}
-                    >
-                      <p className="p">
-                        {item.amount} {item.crypto}
+                    <p className="p" style={{ fontWeight: "600" }}>
+                      ₽ {item.price}
+                    </p>
+                    <p>
+                      Amount{" "}
+                      <b style={{ fontWeight: 500 }}>{item.amount} USDT</b>
+                    </p>
+                    <p>
+                      Limits{" "}
+                      <b style={{ fontWeight: 500 }}>1,000.00-5,00.00 RUB</b>
+                    </p>
+                    <section>
+                      <p>
+                        <span></span> SPB
                       </p>
-                      <button className="green-button">Buy</button>
-                    </div>
+                      <button
+                        className="p"
+                        style={{
+                          background:
+                            page == "Sell"
+                              ? "var(--red-gradient)"
+                              : "var(--green-gradient)",
+                        }}
+                      >
+                        {page}
+                      </button>
+                    </section>
                   </div>
                 );
               })
