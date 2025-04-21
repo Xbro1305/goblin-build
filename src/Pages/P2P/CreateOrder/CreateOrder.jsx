@@ -109,7 +109,7 @@ export const CreateOrder = () => {
             <select
               className={styles.createOrder_select}
               value={currency}
-              onChange={(e)=>setCurrency(e.target.value)}
+              onChange={(e) => setCurrency(e.target.value)}
               name="currency"
               id=""
             >

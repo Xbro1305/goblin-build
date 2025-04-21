@@ -6,6 +6,28 @@ import { FaUser } from "react-icons/fa";
 
 export const Trading = () => {
   const [page, setPage] = React.useState("Buy");
+  const [data, setData] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    fetch(process.env.REACT_APP_BASE_URL + "/api/p2p/offers/all", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <div className={styles.trading}>
       <img src={bg} className="background" alt="" />
@@ -74,92 +96,49 @@ export const Trading = () => {
             </button>
           </div>
           <div className={styles.trading_content_main_body}>
-            <div className={styles.trading_content_item}>
-              <div className={styles.trading_content_item_top}>
-                <div className={styles.trading_content_item_top_left}>
-                  <section>
-                    <FaUser />
-                  </section>
-                  <div className={styles.trading_content_item_top_left_user}>
-                    <p className="span">User</p>
-                    <span className="span2">когда-то</span>
-                  </div>
-                </div>
-                <div className={styles.trading_content_item_top_right}>
-                  <p className="span">778 Orders</p>
-                  <span></span>
-                  <p className="span">98%</p>
-                </div>
+            {loading ? (
+              <div className={styles.trading_content_main_body_loading}>
+                <p className="p">Loading...</p>
               </div>
-              <p className="p" style={{ fontWeight: "600" }}>
-                ₽ 86.06
-              </p>
-              <p>
-                Quantity <b style={{ fontWeight: 500 }}>3,352.2135 USDT</b>
-              </p>
-              <p>
-                Limits <b style={{ fontWeight: 500 }}>1,000.00-5,00.00 RUB</b>
-              </p>
-              <section>
-                <p>
-                  <span></span> SPB
-                </p>
-                <button
-                  className="p"
-                  style={{
-                    background:
-                      page == "Sell"
-                        ? "var(--red-gradient)"
-                        : "var(--green-gradient)",
-                  }}
-                >
-                  {page}
-                </button>
-              </section>
-            </div>{" "}
-            <div className={styles.trading_content_item}>
-              <div className={styles.trading_content_item_top}>
-                <div className={styles.trading_content_item_top_left}>
-                  <section>
-                    <FaUser />
-                  </section>
-                  <div className={styles.trading_content_item_top_left_user}>
-                    <p className="span">User</p>
-                    <span className="span2">когда-то</span>
+            ) : data.length > 0 ? (
+              data.map((item) => {
+                return (
+                  <div
+                    className={styles.trading_content_main_body_item}
+                    key={item.id}
+                  >
+                    <div className={styles.trading_content_main_body_item_top}>
+                      <div
+                        className={
+                          styles.trading_content_main_body_item_top_left
+                        }
+                      >
+                        <FaUser /> {item.user.name}
+                      </div>
+                      <div
+                        className={
+                          styles.trading_content_main_body_item_top_right
+                        }
+                      >
+                        {item.price} {item.currency}
+                      </div>
+                    </div>
+                    <div
+                      className={styles.trading_content_main_body_item_bottom}
+                    >
+                      <p className="p">
+                        {item.amount} {item.crypto}
+                      </p>
+                      <button className="green-button">Buy</button>
+                    </div>
                   </div>
-                </div>
-                <div className={styles.trading_content_item_top_right}>
-                  <p className="span">778 Orders</p>
-                  <span></span>
-                  <p className="span">98%</p>
-                </div>
+                );
+              })
+            ) : (
+              <div className={styles.trading_content_main_body_empty}>
+                <p className="p">No data found</p>
               </div>
-              <p className="p" style={{ fontWeight: "600" }}>
-                ₽ 86.06
-              </p>
-              <p>
-                Quantity <b style={{ fontWeight: 500 }}>3,352.2135 USDT</b>
-              </p>
-              <p>
-                Limits <b style={{ fontWeight: 500 }}>1,000.00-5,00.00 RUB</b>
-              </p>
-              <section>
-                <p>
-                  <span></span> SPB
-                </p>
-                <button
-                  className="p"
-                  style={{
-                    background:
-                      page == "Sell"
-                        ? "var(--red-gradient)"
-                        : "var(--green-gradient)",
-                  }}
-                >
-                  {page}
-                </button>
-              </section>
-            </div>
+            )}
           </div>
         </div>
       </div>
