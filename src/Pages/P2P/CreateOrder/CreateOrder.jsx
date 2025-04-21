@@ -7,6 +7,7 @@ import axios from "axios";
 
 export const CreateOrder = () => {
   const [page, setPage] = useState("BUY");
+  const [currency, setCurrency] = useState("RUB");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,7 +17,7 @@ export const CreateOrder = () => {
       data: {
         type: page,
         amount: Number(e.target.amount.value),
-        currency: Number(e.target.currency.value),
+        currency,
         price: Number(e.target.price.value),
         paymentMethodIds: [],
       },
@@ -105,7 +106,13 @@ export const CreateOrder = () => {
         <div className={styles.createOrder_left}>
           <label>
             <p className="p">Фиат</p>
-            <select className={styles.createOrder_select} name="currency" id="">
+            <select
+              className={styles.createOrder_select}
+              value={currency}
+              onChange={(e)=>setCurrency(e.target.value)}
+              name="currency"
+              id=""
+            >
               <option value="usdt">RUB</option>
             </select>
           </label>
