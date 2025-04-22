@@ -15,7 +15,7 @@ export const Router = () => {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/signin" element={<Signin />} />
-      <Route path="/" element={<AuthGuard />}>
+      <Route element={<AuthGuard />}>
         <Route path="/profile" element={<Profile />} />
         <Route path="/order/:id" element={<Order />} />
         <Route path="/p2p/my-orders" element={<MyOrders />} />

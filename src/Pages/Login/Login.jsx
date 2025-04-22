@@ -14,7 +14,7 @@ export const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios(`${baseUrl}/api/users/login`, {
+    axios(`${baseUrl}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -21,7 +21,7 @@ export const Signin = () => {
     }
 
     e.preventDefault();
-    axios(`${baseUrl}/api/users/register`, {
+    axios(`${baseUrl}/api/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -64,7 +64,7 @@ const Info = () => {
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
-    axios(`${baseUrl}/api/users/me`, {
+    axios(`${baseUrl}/api/auth/me`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
