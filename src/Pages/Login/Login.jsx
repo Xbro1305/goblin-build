@@ -4,6 +4,7 @@ import { Input } from "../../Components/Input/Input";
 import { CiLock, CiUser } from "react-icons/ci";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { enqueueSnackbar } from "notistack";
 
 export const Login = () => {
   const [email, setEmail] = react.useState("");
@@ -28,6 +29,10 @@ export const Login = () => {
       })
       .catch((error) => {
         console.error(error);
+        enqueueSnackbar("Ошибка входа", {
+          variant: "error",
+          autoHideDuration: 2000,
+        });
       });
   };
 
