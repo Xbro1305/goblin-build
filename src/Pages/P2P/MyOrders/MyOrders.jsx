@@ -26,6 +26,10 @@ export const MyOrders = () => {
     axios(process.env.REACT_APP_BASE_URL + "/api/p2p/all")
       .then((res) => setData(res.data))
       .catch((err) => {
+        if (err.response.status === 401) {
+          localStorage.removeItem("token");
+          window.location.reload();
+        }
         console.log(err);
         enqueueSnackbar("Ошибка", {
           variant: "error",

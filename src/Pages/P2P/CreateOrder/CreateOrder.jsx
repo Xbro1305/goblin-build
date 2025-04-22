@@ -4,6 +4,7 @@ import bg from "../../../assets/images/Group 756.png";
 import { NumericFormat } from "react-number-format";
 import { IoCard } from "react-icons/io5";
 import axios from "axios";
+import { enqueueSnackbar } from "notistack";
 
 export const CreateOrder = () => {
   const [page, setPage] = useState("BUY");
@@ -29,9 +30,21 @@ export const CreateOrder = () => {
     })
       .then((res) => {
         console.log(res.data);
+        enqueueSnackbar(res.data.message, {
+          variant: "success",
+          autoHideDuration: 2000,
+        });
       })
       .catch((err) => {
         console.log(err);
+        if (err.response.status === 401) {
+          localStorage.removeItem("token");
+          window.location.reload();
+        }
+        enqueueSnackbar(err.response.data.message, {
+          variant: "error",
+          autoHideDuration: 2000,
+        });
       });
   };
 

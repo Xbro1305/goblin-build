@@ -3,6 +3,8 @@ import styles from "./Trading.module.scss";
 import bg from "../../../assets/images/Group 756.png";
 import { TbExchange, TbFilter } from "react-icons/tb";
 import { FaUser } from "react-icons/fa";
+import axios from "axios";
+import { enqueueSnackbar } from "notistack";
 
 export const Trading = () => {
   const [page, setPage] = React.useState("Buy");
@@ -11,21 +13,28 @@ export const Trading = () => {
   const [items, setItems] = React.useState([]);
 
   useEffect(() => {
-    fetch(process.env.REACT_APP_BASE_URL + "/api/p2p/offers/all", {
+    axios(process.env.REACT_APP_BASE_URL + "/api/p2p/offers/all", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
+      .then((res) => {
+        setData(res.data);
         setLoading(false);
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
+        enqueueSnackbar(err.response.data.message, {
+          variant: "error",
+          autoHideDuration: 2000,
+        });
+        if (err.response.status === 401) {
+          localStorage.removeItem("token");
+          window.location.reload();
+        }
       });
   }, []);
 
@@ -125,7 +134,7 @@ export const Trading = () => {
                         <div
                           className={styles.trading_content_item_top_left_user}
                         >
-                          <p className="span">{item?.user?.name || "User"}</p>
+                          <p className="span">{item?.ukoser?.name || "User"}</p>
                           <span className="span2">когда-то</span>
                         </div>
                       </div>
