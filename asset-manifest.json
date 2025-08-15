@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.78b20b5c.css",
+    "main.js": "/static/js/main.c0996c5a.js",
+    "static/media/Group 756.png": "/static/media/Group 756.bb9f0430b68e19869b67.png",
+    "static/media/Гоблин 2.svg": "/static/media/Гоблин 2.2545131a882917177d8e3ebdf47224ac.svg",
+    "index.html": "/index.html",
+    "main.78b20b5c.css.map": "/static/css/main.78b20b5c.css.map",
+    "main.c0996c5a.js.map": "/static/js/main.c0996c5a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.78b20b5c.css",
+    "static/js/main.c0996c5a.js"
+  ]
+}
